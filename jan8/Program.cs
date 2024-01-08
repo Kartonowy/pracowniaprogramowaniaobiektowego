@@ -17,12 +17,21 @@ większy niż 18 lat.
         int n = ReadInt("Podaj liczbę osób: ", 0, int.MaxValue);
 
         int[] ages = new int[n];
-        int[] names = new int[n];
+        string[] names = new string[n];
     
         for (int i = 0; i < n; ++i) {
+            names[i] = ReadString($"Podaj imie {i + 1}");
             ages[i] = ReadInt($"Podaj wiek osoby {i + 1}", 0, 150);
         }
+
+        Console.WriteLine("Tablica imion i wieków:");
+        PrintTables(names, ages);
+
+        List<String> namesWithA = names.Where(e => e.StartsWith("A")).ToList();
+
+        Console.WriteLine("Lista imion zaczynajacych sie na litere a lub A");
     }
+
     static int ReadInt(string prompt, int low, int high) {
         int result;
         bool valid;
@@ -34,18 +43,28 @@ większy niż 18 lat.
             }
         } while (!valid);
         return result;
-
     }
+
     static string ReadString(string prompt) {
         string result;
         do {
            Console.WriteLine(prompt);
-           result = Console.ReadLine()?;
+           result = Console.ReadLine();
            if (string.IsNullOrEmpty(result)) {
                Console.WriteLine("Podaj niepusty ciąg znaku");
            }
         } while (string.IsNullOrEmpty(result));
 
         return result;
+    }
+    static void PrintTables(string[] names, int[] ages) {
+        for (int i = 0; i < names.Length ; ++i) {
+            Console.WriteLine($"{names[i]} - {ages[i]}");
+        }
+    }
+    static void PrintList(List<string> names) {
+        foreach(string name in names) {
+           Console.WriteLine($"{name}");
+        };
     }
 }
