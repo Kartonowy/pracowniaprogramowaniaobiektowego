@@ -20,17 +20,30 @@ większy niż 18 lat.
         string[] names = new string[n];
     
         for (int i = 0; i < n; ++i) {
-            names[i] = ReadString($"Podaj imie {i + 1}");
-            ages[i] = ReadInt($"Podaj wiek osoby {i + 1}", 0, 150);
+            names[i] = ReadString($"Podaj imie {i + 1} \n");
+            ages[i] = ReadInt($"Podaj wiek osoby {i + 1} \n", 0, 150);
         }
 
         Console.WriteLine("Tablica imion i wieków:");
         PrintTables(names, ages);
 
-        List<String> namesWithA = names.Where(e => e.StartsWith("A")).ToList();
+        List<String> namesWithA = names.Where(e => e.ToUpper().StartsWith("A")).ToList();
 
         Console.WriteLine("Lista imion zaczynajacych sie na litere a lub A");
+        PrintList(namesWithA);
+
+        Dictionary<string, int> adults = new Dictionary<string, int>();
+        for (int i = 0; i < n; ++i) {
+            if (ages[i] >= 18) {
+                adults.Add(names[i], ages[i]);
+            }
+        }
+        Console.WriteLine("Osoby pełnoletnie: ");
+        PrintDictionary(adults);
+
+        Console.ReadKey();
     }
+
 
     static int ReadInt(string prompt, int low, int high) {
         int result;
@@ -67,4 +80,11 @@ większy niż 18 lat.
            Console.WriteLine($"{name}");
         };
     }
+    static void PrintDictionary(Dictionary<string, int> adults) {
+        foreach(var pair in adults) {
+            Console.WriteLine($"{pair.Key} - {pair.Value}");
+        }
+    }
+
 }
+
